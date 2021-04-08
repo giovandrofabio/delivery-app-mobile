@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { theme } from "../../../App.style";
 
 export const loginStyle = StyleSheet.create({
     content: {
@@ -7,13 +8,13 @@ export const loginStyle = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        backgroundColor: "rgb(101,37,131)"
+        backgroundColor: theme.colors.primary
     },
     view: {
         width: "80%"
     },
     cardTitle: {
-        color: "rgb(101,37,131)"
+        color: theme.colors.primary
     },
     cardButton: {
         margin: 2,
