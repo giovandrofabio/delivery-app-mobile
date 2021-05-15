@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { theme } from "../../../App.style";
 
-export const addressStyle = StyleSheet.create({
+export const deliveryRouteStyle = StyleSheet.create({
     marginHorizontal : {
         marginHorizontal: 10
     },
