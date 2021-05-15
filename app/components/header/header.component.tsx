@@ -2,6 +2,11 @@ import React from 'react';
 import { Appbar, Menu } from 'react-native-paper';
 import { headerStyle } from './header.style';
 
+interface HeaderComponentParams {
+    hasBackButton? : boolean;
+    title: string;
+}
+
 export const HeaderComponent = (props: HeaderComponentParams) => {
 
     return (
@@ -21,13 +26,9 @@ export const HeaderComponent = (props: HeaderComponentParams) => {
 
                 </Menu>
             }
-            <Appbar.Content title={props.title} />
+            <Appbar.Content
+                title={props.title} />
         </Appbar>
     )
 
-}
-
-interface HeaderComponentParams {
-    hasBackButton? : boolean;
-    title: string;
 }

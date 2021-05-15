@@ -12,8 +12,10 @@ const HomeScreen = () => {
     const state: number = 3;
     
     return (
-        <SafeAreaView style={homeStyle.flex}>
-            <HeaderComponent title="Delivery App" />
+        <SafeAreaView
+            style={homeStyle.flex}>
+            <HeaderComponent
+                title="Delivery App" />
             <MapView
                 style={homeStyle.flex}
                 initialRegion={{

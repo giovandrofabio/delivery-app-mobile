@@ -8,9 +8,13 @@ import { deliveryStyle } from './delivery.style';
 const DeliveryScreen = () => {
 
     return (
-        <SafeAreaView style={deliveryStyle.flex}>
-            <HeaderComponent title={"Delivery details"} hasBackButton={true} />
-            <View style={deliveryStyle.flex}>
+        <SafeAreaView
+            style={deliveryStyle.flex}>
+            <HeaderComponent
+                title={"Delivery details"}
+                hasBackButton={true} />
+            <View
+                style={deliveryStyle.flex}>
                 <MapView
                     initialRegion={{
                         latitude: -3.722,
