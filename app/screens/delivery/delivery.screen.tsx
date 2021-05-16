@@ -5,14 +5,19 @@ import { Avatar, Card, List, Text, Title } from 'react-native-paper';
 import { HeaderComponent } from '../../components/header/header.component';
 import { deliveryStyle } from './delivery.style';
 
-const DeliveryScreen = () => {
+interface DeliveryScreenProps {
+    navigation: any
+}
+
+const DeliveryScreen = (props: DeliveryScreenProps) => {
 
     return (
         <SafeAreaView
             style={deliveryStyle.flex}>
             <HeaderComponent
                 title={"Delivery details"}
-                hasBackButton={true} />
+                hasBackButton={true}
+                navigation={props.navigation}/>
             <View
                 style={deliveryStyle.flex}>
                 <MapView

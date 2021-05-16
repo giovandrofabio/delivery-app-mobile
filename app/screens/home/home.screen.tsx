@@ -7,7 +7,13 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { SearchingDeliveryComponent } from '../../components/searching-delivery/searching-delivery.component';
 import { homeStyle } from './home.style';
 
-const HomeScreen = () => {
+interface HomeScreenProps {
+    navigation: any;
+}
+
+const HomeScreen = (props: HomeScreenProps) => {
+
+    const goToDeliveryRoute = () => props.navigation.navigate("DeliveryRoute")
 
     const state: number = 1;
     
@@ -15,7 +21,8 @@ const HomeScreen = () => {
         <SafeAreaView
             style={homeStyle.flex}>
             <HeaderComponent
-                title="Delivery App" />
+                title="Delivery App"
+                navigation={props.navigation}/>
             <MapView
                 style={homeStyle.flex}
                 initialRegion={{
@@ -70,7 +77,8 @@ const HomeScreen = () => {
                 state == 1 ?
                 <FAB
                     style={homeStyle.fab}
-                    icon="plus" />
+                    icon="plus"
+                    onPress={goToDeliveryRoute}/>
                 : null
             }
             {

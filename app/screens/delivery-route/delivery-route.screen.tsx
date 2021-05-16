@@ -4,15 +4,22 @@ import { Button, TextInput, Title } from 'react-native-paper';
 import { HeaderComponent } from '../../components/header/header.component';
 import { deliveryRouteStyle } from './delivery-route.style';
 
-const DeliveryRouteScreen = () => {
+interface DeliveryRouteScreenProps {
+    navigation: any;
+}
+
+const DeliveryRouteScreen = (props: DeliveryRouteScreenProps) => {
 
     const destinations: number[] = [1, 2];
+
+    const loadDeliveryPricing = () => props.navigation.navigate("Delivery")
 
     return (
         <SafeAreaView>
             <HeaderComponent
                 title="Address"
-                hasBackButton={true} />
+                hasBackButton={true}
+                navigation={props.navigation}/>
             <View
                 style={deliveryRouteStyle.marginHorizontal}>
                 <TextInput
@@ -44,7 +51,8 @@ const DeliveryRouteScreen = () => {
                 mode="contained"
                 uppercase={false}
                 style={deliveryRouteStyle.readyButtonStyle}
-                labelStyle={deliveryRouteStyle.readyButtonLabelStyle}>
+                labelStyle={deliveryRouteStyle.readyButtonLabelStyle}
+                onPress={loadDeliveryPricing}>
                 Ready
             </Button>
         </SafeAreaView>

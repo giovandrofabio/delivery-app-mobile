@@ -1,9 +1,16 @@
 import React from 'react';
-import { SafeAreaView, View } from 'react-native';
+import { Alert, SafeAreaView, View } from 'react-native';
 import { Button, Card, TextInput } from 'react-native-paper';
 import { loginStyle } from './login.style';
 
-const LoginScreen = () => {
+interface LoginScreenProps {
+    navigation: any;
+}
+
+const LoginScreen = (props: LoginScreenProps) => {
+
+    const login = () => props.navigation.navigate("Home");
+    const register = () => props.navigation.navigate("Register")
 
     return (
         <SafeAreaView
@@ -27,11 +34,13 @@ const LoginScreen = () => {
                             Forgot email/password
                         </Button>
                         <Button
+                            onPress={login}
                             mode="contained"
                             style={loginStyle.cardButton}>
                             Login
                         </Button>
                         <Button
+                            onPress={register}
                             style={loginStyle.cardButton}>
                             Register
                         </Button>
