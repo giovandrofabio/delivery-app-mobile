@@ -9,13 +9,14 @@ import { homeStyle } from './home.style';
 
 interface HomeScreenProps {
     navigation: any;
+    state: number;
 }
 
 const HomeScreen = (props: HomeScreenProps) => {
 
     const goToDeliveryRoute = () => props.navigation.navigate("DeliveryRoute")
 
-    const state: number = 1;
+    const state: number = props.state || 1;
     
     return (
         <SafeAreaView
@@ -25,6 +26,7 @@ const HomeScreen = (props: HomeScreenProps) => {
                 navigation={props.navigation}/>
             <MapView
                 style={homeStyle.flex}
+                testID="mapView"
                 initialRegion={{
                     latitude: -3.722,
                     longitude: -38.515,
@@ -78,7 +80,8 @@ const HomeScreen = (props: HomeScreenProps) => {
                 <FAB
                     style={homeStyle.fab}
                     icon="plus"
-                    onPress={goToDeliveryRoute}/>
+                    onPress={goToDeliveryRoute}
+                    testID="createDeliveryButton"/>
                 : null
             }
             {

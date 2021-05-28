@@ -6,11 +6,12 @@ import { deliveryRouteStyle } from './delivery-route.style';
 
 interface DeliveryRouteScreenProps {
     navigation: any;
+    destinations: number[];
 }
 
 const DeliveryRouteScreen = (props: DeliveryRouteScreenProps) => {
 
-    const destinations: number[] = [1, 2];
+    const destinations: number[] = props.destinations || [1];
 
     const loadDeliveryPricing = () => props.navigation.navigate("Delivery")
 
@@ -29,6 +30,7 @@ const DeliveryRouteScreen = (props: DeliveryRouteScreenProps) => {
                         <TextInput
                             key={`destination${index}`}
                             label="Destination"
+                            testID="destination"
                             right={
                                 destinations.length > 1 ?
                                 <TextInput.Icon
@@ -52,7 +54,8 @@ const DeliveryRouteScreen = (props: DeliveryRouteScreenProps) => {
                 uppercase={false}
                 style={deliveryRouteStyle.readyButtonStyle}
                 labelStyle={deliveryRouteStyle.readyButtonLabelStyle}
-                onPress={loadDeliveryPricing}>
+                onPress={loadDeliveryPricing}
+                testID="readyButton">
                 Ready
             </Button>
         </SafeAreaView>

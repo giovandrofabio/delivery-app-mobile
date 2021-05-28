@@ -6,7 +6,8 @@ import { confirmDeliveryCardStyle } from './confirm-delivery-card.style';
 export const ConfirmDeliveryCardComponent = () => {
 
     return (
-        <Card>
+        <Card
+            testID="confirmDeliveryCard">
             <Card.Content>
                 <List.Item
                     title="$ 15,00"

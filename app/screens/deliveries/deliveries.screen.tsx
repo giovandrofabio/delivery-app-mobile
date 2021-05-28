@@ -6,11 +6,12 @@ import { deliveriesStyle } from './deliveries.style';
 
 interface DeliveriesScreenProps {
     navigation: any;
+    deliveries: number[];
 }
 
 const DeliveriesScreen = (props: DeliveriesScreenProps) => {
 
-    const deliveries: number[] = [1, 2, 3];
+    const deliveries: number[] = props.deliveries || [1];
 
     const goToDeliveryDetails = () => props.navigation.navigate("Delivery");
 
@@ -26,7 +27,8 @@ const DeliveriesScreen = (props: DeliveriesScreenProps) => {
                 renderItem={({item, index}) =>
                     <Card
                         style={{...deliveriesStyle.card, ...deliveriesStyle.cardStatus}}
-                        onPress={goToDeliveryDetails}>
+                        onPress={goToDeliveryDetails}
+                        testID="deliveryCard">
                         <Card.Cover
                             source={{uri: "https://snazzy-maps-cdn.azureedge.net/assets/74-becomeadinosaur.png?v=20170626082939"}}
                         />

@@ -7,7 +7,8 @@ export const SearchingDeliveryComponent = () => {
 
     return (
         <View
-            style={searchingDeliveryStyle.flexCenterColumn}>
+            style={searchingDeliveryStyle.flexCenterColumn}
+            testID="searchDeliveryCard">
             <ActivityIndicator
                 color={searchingDeliveryStyle.icon.color}
                 animating={true} />

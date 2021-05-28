@@ -44,7 +44,8 @@ const RegisterScreen = (props: RegisterScreenProps) => {
                     <Button
                         mode="contained"
                         style={registerStyle.button}
-                        onPress={register}>
+                        onPress={register}
+                        testID="registerButton">
                         Register
                     </Button>
                 </View>

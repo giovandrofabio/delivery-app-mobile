@@ -36,12 +36,14 @@ const LoginScreen = (props: LoginScreenProps) => {
                         <Button
                             onPress={login}
                             mode="contained"
-                            style={loginStyle.cardButton}>
+                            style={loginStyle.cardButton}
+                            testID="loginButton">
                             Login
                         </Button>
                         <Button
                             onPress={register}
-                            style={loginStyle.cardButton}>
+                            style={loginStyle.cardButton}
+                            testID="registerButton">
                             Register
                         </Button>
                     </Card.Content>
