@@ -1,5 +1,5 @@
 const { AppInitialState } = require("../../AppInitialState");
-const { recoverPassword, recoverPasswordSuccess, recoverPasswordFail } = require("../login.actions");
+const { recoverPassword, recoverPasswordSuccess, recoverPasswordFail, recoverPasswordReset } = require("../login.actions");
 const { loginReducer } = require("../login.reducers");
 
 describe('Login store', () => {
@@ -44,6 +44,20 @@ describe('Login store', () => {
             error,
             isRecoveredPassword: false,
             isRecoveringPassword: false
+        })
+    })
+
+    it('recoverPasswordReset', () => {
+        const initialState = {
+            ...AppInitialState.login,
+            error: {error: 'message'},
+            isRecoveredPassword: true,
+            isRecoveringPassword: true
+        };
+        const newState = loginReducer(initialState, recoverPasswordReset());
+
+        expect(newState).toEqual({
+            ...AppInitialState.login
         })
     })
 

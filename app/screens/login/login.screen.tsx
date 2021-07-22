@@ -1,16 +1,56 @@
+import { bindActionCreators } from '@reduxjs/toolkit';
 import { Formik } from 'formik';
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { Alert, SafeAreaView, View } from 'react-native';
-import { Button, Card, Text, TextInput } from 'react-native-paper';
+import { Button, Card, Snackbar, Text, TextInput } from 'react-native-paper';
+import { connect } from 'react-redux';
+import AuthService from '../../services/AuthService';
+import { AppState } from '../../store/AppState';
+import { hide, show } from '../../store/loading/loading.actions';
+import { LoadingState } from '../../store/loading/LoadingState';
+import { recoverPassword, recoverPasswordFail, recoverPasswordReset, recoverPasswordSuccess } from '../../store/login/login.actions';
+import { LoginState } from '../../store/login/LoginState';
 import { loginForm } from './login.form';
 import { loginStyle } from './login.style';
 
 interface LoginScreenProps {
     navigation: any;
+
+    loadingState: LoadingState;
+    loginState: LoginState;
+
+    recoverPassword: Function;
+    recoverPasswordFail: Function;
+    recoverPasswordReset: Function;
+    recoverPasswordSuccess: Function;
+    hideLoading: Function;
+    showLoading: Function;
 }
 
 const LoginScreen = (props: LoginScreenProps) => {
 
+    const [recoveryEmail, setRecoveryEmail] = useState("");
+
+    useEffect(() => {
+        if (props.loginState.isRecoveringPassword){
+            props.showLoading();
+
+            AuthService.recoverPassword(recoveryEmail).then(() => {
+                props.recoverPasswordSuccess();
+            }).catch(error => {
+                props.recoverPasswordFail(error);
+            })
+        } else {
+            props.hideLoading();
+        }
+    }, [props.loginState.isRecoveringPassword])
+
+    const forgotEmailPassword = (email: string) => {
+        setRecoveryEmail(email);
+        props.recoverPassword();
+    };
     const login = () => props.navigation.navigate("Home");
     const register = () => props.navigation.navigate("Register")
 
@@ -57,6 +97,7 @@ const LoginScreen = (props: LoginScreenProps) => {
                                         : null
                                     }
                                     <Button
+                                        onPress={() => forgotEmailPassword(values.email)}
                                         uppercase={false}
                                         style={loginStyle.cardButton}
                                         testID="recoveryButton"
@@ -82,9 +123,47 @@ const LoginScreen = (props: LoginScreenProps) => {
                     </Card.Content>
                 </Card>
             </View>
+            {
+                props.loginState.isRecoveredPassword ?
+                <Snackbar
+                    duration={5000}
+                    visible={true}
+                    onDismiss={() => props.recoverPasswordReset()}
+                    testID="recoverPasswordSuccess">
+                    Recovery email sent
+                </Snackbar>
+                : null
+            }
+            {
+                props.loginState.error ?
+                <Snackbar
+                    duration={5000}
+                    visible={true}
+                    onDismiss={() => props.recoverPasswordReset()}
+                    testID="recoverPasswordFail">
+                    {props.loginState.error.message}
+                </Snackbar>
+                : null
+            }
         </SafeAreaView>
     );
 
 }
 
-export default LoginScreen;
+const mapStateToProps = (store: AppState) => ({
+    loadingState: store.loading,
+    loginState: store.login
+});
+
+const mapDispatchToProps = (dispatch: any) => (
+    bindActionCreators({
+        recoverPassword: recoverPassword,
+        recoverPasswordFail: recoverPasswordFail,
+        recoverPasswordReset: recoverPasswordReset,
+        recoverPasswordSuccess: recoverPasswordSuccess,
+        hideLoading: hide,
+        showLoading: show
+    }, dispatch)
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
