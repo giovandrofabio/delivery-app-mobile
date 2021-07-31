@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { AppInitialState } from "../AppInitialState";
-import { recoverPassword, recoverPasswordFail, recoverPasswordReset, recoverPasswordSuccess } from "./login.actions";
+import { login, loginFail, loginSuccess, recoverPassword, recoverPasswordFail, recoverPasswordReset, recoverPasswordSuccess } from "./login.actions";
 import { LoginState } from "./LoginState";
 
 const initialState: LoginState = AppInitialState.login;
@@ -37,5 +37,28 @@ export const loginReducer = createReducer(initialState, builder => {
             isRecoveredPassword: false,
             isRecoveringPassword: false
         };
+    }),
+    builder.addCase(login, currentState => {
+        return {
+            ...currentState,
+            error: null,
+            isLoggedIn: false,
+            isLoggingIn: true
+        }
+    }),
+    builder.addCase(loginSuccess, currentState => {
+        return {
+            ...currentState,
+            isLoggedIn: true,
+            isLoggingIn: false
+        }
+    }),
+    builder.addCase(loginFail, (currentState, action) => {
+        return {
+            ...currentState,
+            error: action.payload,
+            isLoggedIn: false,
+            isLoggingIn: false
+        }
     })
 })

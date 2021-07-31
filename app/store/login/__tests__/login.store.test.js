@@ -1,5 +1,5 @@
 const { AppInitialState } = require("../../AppInitialState");
-const { recoverPassword, recoverPasswordSuccess, recoverPasswordFail, recoverPasswordReset } = require("../login.actions");
+const { recoverPassword, recoverPasswordSuccess, recoverPasswordFail, recoverPasswordReset, login, loginSuccess, loginFail } = require("../login.actions");
 const { loginReducer } = require("../login.reducers");
 
 describe('Login store', () => {
@@ -58,6 +58,48 @@ describe('Login store', () => {
 
         expect(newState).toEqual({
             ...AppInitialState.login
+        })
+    })
+
+    it('login', () => {
+        const initialState = {
+            ...AppInitialState.login
+        };
+        const newState = loginReducer(initialState, login());
+        expect(newState).toEqual({
+            ...initialState,
+            error: null,
+            isLoggedIn: false,
+            isLoggingIn: true
+        })
+    })
+    
+    it('loginSuccess', () => {
+        const initialState = {
+            ...AppInitialState.login,
+            isLoggingIn: true
+        };
+        const user = {id: 'userId'};
+        const newState = loginReducer(initialState, loginSuccess(user));
+        expect(newState).toEqual({
+            ...initialState,
+            isLoggedIn: true,
+            isLoggingIn: false
+        })
+    })
+    
+    it('loginFail', () => {
+        const initialState = {
+            ...AppInitialState.login,
+            isLoggingIn: true
+        };
+        const error = {message: 'error'}
+        const newState = loginReducer(initialState, loginFail(error));
+        expect(newState).toEqual({
+            ...initialState,
+            error,
+            isLoggedIn: false,
+            isLoggingIn: false
         })
     })
 
